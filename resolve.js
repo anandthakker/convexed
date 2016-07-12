@@ -22,7 +22,11 @@ module.exports = function resolve (polygon, threshold) {
   // 3. assign the _hole_ a concavity of concavity(x) + distance(x, p) + path(p, q) + maxConcavity(outer)
 
   const sorted = outer.map(function (point, i) { return i }).slice(0, -1)
-  sorted.sort(compareConcavityAndDistance)
+  sorted.sort(function (a, b) {
+    // descending by concavity
+    const deltaConcavity = outer[b].bridgeDistance - outer[a].bridgeDistance
+    if (deltaConcavity) { return deltaConcavity }
+  })
 
   // index all the segments of the polygon
   const index = rbush()
@@ -41,16 +45,6 @@ module.exports = function resolve (polygon, threshold) {
   }
 
   return diagonal < sorted.length ? [witness, sorted[diagonal]] : null
-
-  function compareConcavityAndDistance (a, b) {
-    // descending by concavity
-    const deltaConcavity = outer[b].bridgeDistance - outer[a].bridgeDistance
-    if (deltaConcavity) { return deltaConcavity }
-    const da = util.squaredDistance(outer[a], outer[witness])
-    const db = util.squaredDistance(outer[b], outer[witness])
-    // ascending by distance
-    return da - db
-  }
 }
 
 function polygonSegmentBounds (polygon) {

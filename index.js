@@ -37,8 +37,8 @@ module.exports = function (polygon, threshold, maxIterations) {
       nextConcavity = Math.max(polygons[i][0][diagonals[i][0]].bridgeDistance, nextConcavity)
 
       // split
-      const parts = split(polygons[i], 0, diagonals[i][0], 0, diagonals[i][1])
-      nextPolygons.push.apply(nextPolygons, parts)
+      split(polygons[i], 0, diagonals[i][0], 0, diagonals[i][1], nextPolygons)
+
       splits.push([polygons[i][0][diagonals[i][0]], polygons[i][0][diagonals[i][1]]])
     }
 

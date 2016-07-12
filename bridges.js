@@ -3,7 +3,6 @@ const pointToSegment = require('./util').pointToSegment
 
 // Find the "bridges" in the given ring.  (A bridge is a convex hull edge that
 // spans more than one edge of the ring, as described in
-// http://cs.gmu.edu/~jmlien/research/app-cd/cd2d_CGTA.pdf.)
 //
 // Also for each ring vertex not on the convex hull, mark it with its
 // associated bridge ([index1, index2]) and the squared distance to that
