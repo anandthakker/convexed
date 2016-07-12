@@ -1,3 +1,4 @@
+// From https://github.com/mapbox/polysnap/blob/master/viz/viz.js
 module.exports = DebugViz
 function DebugViz(id, options) {
     var canvas = this.canvas = document.getElementById(id);
